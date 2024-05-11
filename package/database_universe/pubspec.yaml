@@ -1,6 +1,6 @@
 name: 'database_universe'
 description: 'Database Universe Library for help you create project flutter or dart'
-version: '0.0.1'
+version: '0.0.2'
 homepage: 'https://github.com/azkadev/database_universe'
 repository: 'https://github.com/azkadev/database_universe'
 issue_tracker: 'https://github.com/azkadev/database_universe/issues'

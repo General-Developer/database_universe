@@ -5,7 +5,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:collection/collection.dart';
-import 'package:database_universe/database_universe.dart';
+import 'package:database_universe/database_universe.dart'; 
 import 'package:general_lib/general_lib.dart';
 import 'package:http/http.dart';
 import 'package:system_info_fetch/system_info_fetch.dart';
@@ -64,12 +64,17 @@ class DatabaseUniverse {
   /// call this
   void init({
     required Crypto crypto,
-    Client? httpClient,
-    DatabaseUniverseType? databaseUniverseType,
+    Client? httpClient, 
   }) {
     crypto_library = crypto;
     httpClient ??= Client();
     http_client = httpClient;
+  }
+
+  Crypto getCrypto({
+    required Crypto? crypto,
+  }) {
+    return crypto ?? crypto_library;
   }
 
   /// get ram usage
@@ -98,10 +103,7 @@ class DatabaseUniverse {
     Uri uri = () {
       return Uri.parse("ram://${file_name}.${extension_name}");
     }();
-    DatabaseUniverseData<JsonScheme>? databaseUniverseData =
-        disk_datas.firstWhereOrNull((element) =>
-            element.uri == uri &&
-            element.databaseUniverseType == DatabaseUniverseType.ram);
+    DatabaseUniverseData<JsonScheme>? databaseUniverseData = disk_datas.firstWhereOrNull((element) => element.uri == uri && element.databaseUniverseType == DatabaseUniverseType.ram);
     if (databaseUniverseData != null) {
       valueData.rawData = databaseUniverseData.value.rawData;
       DatabaseUniverseData<T> databaseUniverseDisk = DatabaseUniverseData(
@@ -134,20 +136,18 @@ class DatabaseUniverse {
     required String file_name,
     required Directory directory,
     required T valueData,
+    Crypto? cryptoLibrary,
   }) {
     if (Dart.isWeb) {
-      return ram_open(
-          file_name: file_name, directory: directory, valueData: valueData);
+      return ram_open(file_name: file_name, directory: directory, valueData: valueData);
     }
-    File file = File(path.join(
-        directory.uri.toFilePath(), "${file_name}.${extension_name}"));
-    File file_lock = File(path.join(
-        directory.uri.toFilePath(), "${file_name}.${extension_name}.lock"));
 
-    DatabaseUniverseData<JsonScheme>? data = disk_datas.firstWhereOrNull(
-        (element) =>
-            element.uri == file.uri &&
-            element.databaseUniverseType == DatabaseUniverseType.disk);
+    Crypto crypto = getCrypto(crypto: cryptoLibrary);
+
+    File file = File(path.join(directory.uri.toFilePath(), "${file_name}.${extension_name}"));
+    File file_lock = File(path.join(directory.uri.toFilePath(), "${file_name}.${extension_name}.lock"));
+
+    DatabaseUniverseData<JsonScheme>? data = disk_datas.firstWhereOrNull((element) => element.uri == file.uri && element.databaseUniverseType == DatabaseUniverseType.disk);
     if (data != null) {
       valueData.rawData = data.value.rawData;
       DatabaseUniverseData<T> databaseUniverseDisk = DatabaseUniverseData(
@@ -175,7 +175,7 @@ class DatabaseUniverse {
         if (read_data.isEmpty) {
           return read_data;
         }
-        return crypto_library.decrypt(data_base64: (read_data));
+        return crypto.decrypt(data_base64: (read_data));
       }();
     } catch (e) {}
     try {
@@ -193,9 +193,11 @@ class DatabaseUniverse {
   void disk_save<T extends JsonScheme>({
     required DatabaseUniverseData<T> databaseUniverseData,
     bool isWithClose = false,
+    Crypto? cryptoLibrary,
   }) {
     if (Dart.isWeb) {
     } else {
+      Crypto crypto = getCrypto(crypto: cryptoLibrary);
       File file = File.fromUri(databaseUniverseData.uri);
       if (file.parent.existsSync() == false) {
         file.parent.createSync(recursive: true);
@@ -203,8 +205,7 @@ class DatabaseUniverse {
       if (file.existsSync() == false) {
         file.createSync(recursive: true);
       }
-      file.writeAsStringSync(crypto_library.encrypt(
-          data: json.encode(databaseUniverseData.value.rawData)));
+      file.writeAsStringSync(crypto.encrypt(data: json.encode(databaseUniverseData.value.rawData)));
     }
     if (isWithClose) {
       close(databaseUniverseDisk: databaseUniverseData);
@@ -214,9 +215,11 @@ class DatabaseUniverse {
   Future<void> disk_saveAsync<T extends JsonScheme>({
     required DatabaseUniverseData<T> databaseUniverseData,
     bool isWithClose = false,
+    Crypto? cryptoLibrary,
   }) async {
     if (Dart.isWeb) {
     } else {
+      Crypto crypto = getCrypto(crypto: cryptoLibrary);
       File file = File.fromUri(databaseUniverseData.uri);
       if (file.parent.existsSync() == false) {
         file.parent.createSync(recursive: true);
@@ -224,8 +227,7 @@ class DatabaseUniverse {
       if (file.existsSync() == false) {
         file.createSync(recursive: true);
       }
-      await file.writeAsString(crypto_library.encrypt(
-          data: json.encode(databaseUniverseData.value.rawData)));
+      await file.writeAsString(crypto.encrypt(data: json.encode(databaseUniverseData.value.rawData)));
     }
     if (isWithClose) {
       close(databaseUniverseDisk: databaseUniverseData);
@@ -235,14 +237,11 @@ class DatabaseUniverse {
   void close<T extends JsonScheme>({
     required DatabaseUniverseData<T> databaseUniverseDisk,
   }) async {
-    disk_datas.removeWhere((element) =>
-        element.isSame(databaseUniverseData: databaseUniverseDisk));
+    disk_datas.removeWhere((element) => element.isSame(databaseUniverseData: databaseUniverseDisk));
     // disk_datas.removeWhere((element) => element.uri == databaseUniverseDisk.uri);
   }
 
-  void closeAllByType(
-      {required DatabaseUniverseType databaseUniverseType}) async {
-    disk_datas.removeWhere(
-        (element) => element.databaseUniverseType == databaseUniverseType);
+  void closeAllByType({required DatabaseUniverseType databaseUniverseType}) async {
+    disk_datas.removeWhere((element) => element.databaseUniverseType == databaseUniverseType);
   }
 }
