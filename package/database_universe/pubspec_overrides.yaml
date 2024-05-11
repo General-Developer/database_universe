@@ -1,4 +1,4 @@
 # melos_managed_dependency_overrides: 
 dependency_overrides: 
-  database_universe_scheme:
-    path: ../database_universe_scheme
+  # database_universe_scheme:
+  #   path: ../database_universe_scheme

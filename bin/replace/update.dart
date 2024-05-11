@@ -82,7 +82,7 @@ Future<void> pubspecUpdate({
       });
       (yaml_code_clone["dependencies"] as Map).forEach((key, value) {
         if (key == "general_lib") {
-          yaml_code_clone["dependencies"][key] = "^0.0.37";
+          yaml_code_clone["dependencies"][key] = "^0.0.38";
         }
         if (key == "general_lib_flutter") {
           yaml_code_clone["dependencies"][key] = "^0.0.20";
