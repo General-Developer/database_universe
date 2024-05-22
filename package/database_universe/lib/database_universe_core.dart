@@ -5,7 +5,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:collection/collection.dart';
-import 'package:database_universe/database_universe.dart'; 
+import 'package:database_universe/database_universe.dart';
 import 'package:general_lib/general_lib.dart';
 import 'package:http/http.dart';
 import 'package:system_info_fetch/system_info_fetch.dart';
@@ -64,7 +64,7 @@ class DatabaseUniverse {
   /// call this
   void init({
     required Crypto crypto,
-    Client? httpClient, 
+    Client? httpClient,
   }) {
     crypto_library = crypto;
     httpClient ??= Client();
@@ -105,17 +105,20 @@ class DatabaseUniverse {
     }();
     DatabaseUniverseData<JsonScheme>? databaseUniverseData = disk_datas.firstWhereOrNull((element) => element.uri == uri && element.databaseUniverseType == DatabaseUniverseType.ram);
     if (databaseUniverseData != null) {
-      valueData.rawData = databaseUniverseData.value.rawData;
-      DatabaseUniverseData<T> databaseUniverseDisk = DatabaseUniverseData(
-        uri: uri,
-        value: valueData,
-        databaseUniverseType: DatabaseUniverseType.ram,
-      );
-      return databaseUniverseDisk;
+      return databaseUniverseData as DatabaseUniverseData<T>;
+      // valueData.rawData = databaseUniverseData.value.rawData;
+      // DatabaseUniverseData<T> databaseUniverseDisk = DatabaseUniverseData(
+      //   uri: uri,
+      //   value: valueData,
+      //   date_time_refresh: databaseUniverseData.date_time_refresh,
+      //   databaseUniverseType: DatabaseUniverseType.ram,
+      // );
+      // return databaseUniverseDisk;
     }
     DatabaseUniverseData<T> databaseUniverseDisk = DatabaseUniverseData(
       uri: uri,
       value: valueData,
+            state: {},
       databaseUniverseType: DatabaseUniverseType.ram,
     );
     disk_datas.add(databaseUniverseDisk);
@@ -149,13 +152,15 @@ class DatabaseUniverse {
 
     DatabaseUniverseData<JsonScheme>? data = disk_datas.firstWhereOrNull((element) => element.uri == file.uri && element.databaseUniverseType == DatabaseUniverseType.disk);
     if (data != null) {
-      valueData.rawData = data.value.rawData;
-      DatabaseUniverseData<T> databaseUniverseDisk = DatabaseUniverseData(
-        uri: file.uri,
-        value: valueData,
-        databaseUniverseType: DatabaseUniverseType.disk,
-      );
-      return databaseUniverseDisk;
+      return data as DatabaseUniverseData<T>;
+      // valueData.rawData = data.value.rawData;
+      // DatabaseUniverseData<T> databaseUniverseDisk = DatabaseUniverseData(
+      //   uri: file.uri,
+      //   value: valueData,
+      //   date_time_refresh: data.date_time_refresh,
+      //   databaseUniverseType: DatabaseUniverseType.disk,
+      // );
+      // return databaseUniverseDisk;
     }
     if (file.parent.existsSync() == false) {
       file.parent.createSync(recursive: true);
@@ -184,6 +189,8 @@ class DatabaseUniverse {
     DatabaseUniverseData<T> databaseUniverseDisk = DatabaseUniverseData(
       uri: file.uri,
       value: valueData,
+      state: {},
+      // date_time_refresh: DateTime.now(),
       databaseUniverseType: DatabaseUniverseType.disk,
     );
     disk_datas.add(databaseUniverseDisk);
