@@ -17,6 +17,7 @@ class DatabaseUniverseData<T extends JsonScheme> {
     required this.state,
     required this.databaseUniverseType,
   });
+  
   int size() {
     return utf8.encode(json.encode(value.rawData)).length;
   }
