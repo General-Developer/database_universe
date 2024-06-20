@@ -118,7 +118,7 @@ class DatabaseUniverse {
     DatabaseUniverseData<T> databaseUniverseDisk = DatabaseUniverseData(
       uri: uri,
       value: valueData,
-            state: {},
+      state: {},
       databaseUniverseType: DatabaseUniverseType.ram,
     );
     disk_datas.add(databaseUniverseDisk);
