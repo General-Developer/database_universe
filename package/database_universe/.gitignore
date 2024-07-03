@@ -14,3 +14,9 @@ pubspec.lock
 *.sh
 
 db/
+*.deb
+*.sqlite-*
+*.sqlite
+docs/canvaskit
+*/canvaskit
+/build/
