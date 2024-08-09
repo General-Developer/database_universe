@@ -17,9 +17,9 @@ platforms:
 environment: 
   sdk: '>=3.3.3 <4.0.0'
 dependencies: 
-  general_lib: '^0.0.43'
+  general_lib: '^0.0.44'
   path: '^1.9.0'
-  system_info_fetch: '^0.0.22'
+  system_info_fetch: '^0.0.23'
   http: '^1.2.1'
   collection: '^1.18.0'
 dev_dependencies: 
