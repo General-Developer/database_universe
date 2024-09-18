@@ -3,7 +3,7 @@ description: 'Database Universe Library for help you create project flutter or d
 version: '0.0.0'
 environment: 
   sdk: '>=3.3.3 <4.0.0'
-dependencies: null
+dependencies: {}
 dev_dependencies: 
   lints: '^3.0.0'
   test: '^1.24.0'
