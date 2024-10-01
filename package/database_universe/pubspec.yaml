@@ -7,6 +7,7 @@ issue_tracker: 'https://github.com/azkadev/database_universe/issues'
 documentation: 'https://github.com/azkadev/database_universe/tree/main/docs'
 funding: 
   - 'https://github.com/sponsors/azkadev'
+  - 'https://github.com/sponsors/generalfoss'
 platforms: 
   android: null
   ios: null
@@ -17,14 +18,14 @@ platforms:
 environment: 
   sdk: '>=3.3.3 <4.0.0'
 dependencies: 
-  general_lib: '^0.0.44'
+  general_lib: '^0.0.46'
   path: '^1.9.0'
-  system_info_fetch: '^0.0.23'
+  system_info_fetch: '^0.0.24'
   http: '^1.2.1'
   collection: '^1.18.0'
 dev_dependencies: 
-  lints: '^3.0.0'
-  test: '^1.24.0'
+  lints: '^4.0.0'
+  test: 'any'
 publish_to: 'none'
 dependency_overrides: 
   pointycastle: '3.8.0'
