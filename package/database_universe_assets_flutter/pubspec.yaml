@@ -2,24 +2,24 @@ name: 'database_universe_assets_flutter'
 description: 'Database Universe Library for help you create project flutter or dart'
 version: '0.0.0'
 homepage: 'https://github.com/azkadev/database_universe'
-environment: 
+environment:
   sdk: '>=3.3.3 <4.0.0'
   flutter: '>=1.17.0'
-dependencies: 
-  flutter: 
+dependencies:
+  flutter:
     sdk: 'flutter'
-dev_dependencies: 
-  flutter_test: 
+dev_dependencies:
+  flutter_test:
     sdk: 'flutter'
-  flutter_lints: '^4.0.0'
+  flutter_lints: '^5.0.0'
 flutter: null
 repository: 'https://github.com/azkadev/database_universe'
 issue_tracker: 'https://github.com/azkadev/database_universe/issues'
 documentation: 'https://github.com/azkadev/database_universe/tree/main/docs'
-funding: 
+funding:
   - 'https://github.com/sponsors/azkadev'
   - 'https://github.com/sponsors/generalfoss'
-platforms: 
+platforms:
   android: null
   ios: null
   linux: null
@@ -27,5 +27,6 @@ platforms:
   web: null
   windows: null
 publish_to: 'none'
-dependency_overrides: 
+dependency_overrides:
   pointycastle: '3.8.0'
+  mime: '^2.0.0'
