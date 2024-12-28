@@ -16,13 +16,13 @@ platforms:
   web: null
   windows: null
 environment:
-  sdk: '>=3.3.3 <4.0.0'
+  sdk: '>=3.6.0 <4.0.0'
   flutter: '>=1.17.0'
 dependencies:
   flutter:
     sdk: 'flutter'
-  general_lib: '^0.0.50'
-  general_lib_flutter: '^0.0.31'
+  general_lib: '^0.0.51'
+  general_lib_flutter: '^0.0.32'
   path: '^1.9.0'
   universal_io: '^2.2.2'
 dev_dependencies:

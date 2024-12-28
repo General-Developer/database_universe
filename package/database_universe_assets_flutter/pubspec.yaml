@@ -3,7 +3,7 @@ description: 'Database Universe Library for help you create project flutter or d
 version: '0.0.0'
 homepage: 'https://github.com/azkadev/database_universe'
 environment:
-  sdk: '>=3.3.3 <4.0.0'
+  sdk: '>=3.6.0 <4.0.0'
   flutter: '>=1.17.0'
 dependencies:
   flutter:

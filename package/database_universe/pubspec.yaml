@@ -16,13 +16,13 @@ platforms:
   web: null
   windows: null
 environment:
-  sdk: '>=3.3.3 <4.0.0'
+  sdk: '>=3.6.0 <4.0.0'
 dependencies:
-  general_lib: '^0.0.50'
+  general_lib: '^0.0.51'
   path: '^1.9.0'
   http: '^1.2.2'
   collection: '^1.18.0'
-  system_information: '^0.0.4'
+  system_information: '^0.0.5'
 dev_dependencies:
   lints: '^5.0.0'
   test: 'any'
