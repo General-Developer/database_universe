@@ -36,7 +36,7 @@ Bukan maksud kami menipu itu karena harga yang sudah di kalkulasi + bantuan tiba
 
 import 'dart:typed_data';
 
-import 'package:js/js.dart';
+import 'dart:js_interop';
 
 @JS()
 @staticInterop
